@@ -59,7 +59,7 @@ app.post('/chat', async (req, res) => {
 
     if (!data || !data.choices || !data.choices[0]?.message?.content) {
       console.error(" Invalid Groq response:", JSON.stringify(data, null, 2));
-      return res.status(500).json({ reply: "🤖 Groq didn't send a valid message." });
+      return res.status(500).json({ reply: " Groq didn't send a valid message." });
     }
 
     const modelReply = data.choices[0].message.content;
