@@ -34,7 +34,7 @@ app.post('/chat', async (req, res) => {
   const userMessage = req.body.message;
 
   const requestBody = {
-    model: "llama3-8b-8192",  // ✅ Updated model name
+    model: "llama3-8b-8192", 
     messages: [
       { role: "system", content: systemPrompt },
       { role: "user", content: userMessage }
@@ -44,7 +44,7 @@ app.post('/chat', async (req, res) => {
   };
 
   try {
-    console.log("🔑 API Key loaded:", process.env.GROQ_API_KEY);
+    console.log(" API Key loaded:", process.env.GROQ_API_KEY);
     const groqResponse = await fetch("https://api.groq.com/openai/v1/chat/completions", {
       method: 'POST',
       headers: {
@@ -55,10 +55,10 @@ app.post('/chat', async (req, res) => {
     });
 
     const data = await groqResponse.json();
-    console.log("📥 Groq response:", JSON.stringify(data, null, 2));
+    console.log(" Groq response:", JSON.stringify(data, null, 2));
 
     if (!data || !data.choices || !data.choices[0]?.message?.content) {
-      console.error("❌ Invalid Groq response:", JSON.stringify(data, null, 2));
+      console.error(" Invalid Groq response:", JSON.stringify(data, null, 2));
       return res.status(500).json({ reply: "🤖 Groq didn't send a valid message." });
     }
 
@@ -71,7 +71,7 @@ app.post('/chat', async (req, res) => {
           suggestions: parsed.suggestions || [],
           });
     } catch (parseErr) {
-          console.warn("❌ Couldn't parse JSON from model, fallback to plain text.");
+          console.warn(" Couldn't parse JSON from model, fallback to plain text.");
           res.json({
           reply: modelReply,
           suggestions: [],
@@ -79,12 +79,12 @@ app.post('/chat', async (req, res) => {
     }
 
   } catch (err) {
-    console.error("❌ Groq API error:", err);
+    console.error(" Groq API error:", err);
     res.status(500).json({ error: "Groq API failed" });
   }
 });
 
 const PORT = 4000;
 app.listen(PORT, () => {
-  console.log(`✅ BeachBot (Groq) running at http://localhost:${PORT}`);
+  console.log(` BeachBot (Groq) running at http://localhost:${PORT}`);
 });
